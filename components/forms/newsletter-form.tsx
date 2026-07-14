@@ -25,7 +25,7 @@ export function NewsletterForm() {
       <div className="flex overflow-hidden rounded-full bg-white/10 ring-1 ring-white/15">
         <input id="newsletter-email" name="email" type="email" required placeholder="Email address" className="min-w-0 flex-1 bg-transparent px-4 py-3 text-sm text-white placeholder:text-white/45 outline-none" />
         <input type="text" name="website" tabIndex={-1} autoComplete="off" className="hidden" aria-hidden />
-        <button className="focus-ring px-4 text-sand" type="submit" aria-label="Subscribe"><Send className="h-4 w-4" /></button>
+        <button className="focus-ring px-4 text-periwinkle hover:text-lavender transition-colors" type="submit" aria-label="Subscribe"><Send className="h-4 w-4" /></button>
       </div>
       <p className="mt-2 min-h-5 text-xs text-white/65" aria-live="polite">
         {status === "success" ? "You're on the list." : status === "error" ? "Please try again." : ""}

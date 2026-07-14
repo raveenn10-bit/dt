@@ -24,6 +24,10 @@
   --charcoal:   #1d251c;   /* near-black text                             */
   --white:      #ffffff;
 
+  /* ── Dreamy Periwinkle ── */
+  --periwinkle: #b8c0ff;   /* periwinkle blue */
+  --lavender:   #e7d8ff;   /* periwinkle lavender/pink */
+
   /* ── Functional ── */
   --terracotta: var(--lagoon);   /* accent alias → now points to lagoon   */
   --ring:       rgba(109, 213, 196, 0.55);  /* lagoon-tinted focus ring  */
@@ -40,6 +44,8 @@
   --color-deep-teal: var(--deep-teal);
   --color-terracotta:var(--terracotta);
   --color-charcoal:  var(--charcoal);
+  --color-periwinkle:var(--periwinkle);
+  --color-lavender:  var(--lavender);
   --font-display:    var(--font-display);
   --font-sans:       var(--font-sans);
   /* Shadow uses blended forest+lagoon for depth */
@@ -266,4 +272,14 @@ img { max-width: 100%; }
     overflow-x: auto;
   }
 }
+
+/* Blended footer background — Eucalyptus Forest with Periwinkle accents */
+.bg-footer-blend {
+  position: relative;
+  background: 
+    radial-gradient(circle at 80% 90%, rgba(184, 192, 255, 0.08), transparent 30rem),
+    radial-gradient(circle at 20% 10%, rgba(231, 216, 255, 0.05), transparent 25rem),
+    var(--forest);
+}
+
 
