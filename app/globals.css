@@ -1,32 +1,53 @@
 @import "tailwindcss";
 
+/* ─────────────────────────────────────────────────────────────
+   UNIFIED PALETTE — Eucalyptus Glow × Mint Lagoon
+   Eucalyptus (#F4EFE6 / #A7C4A0) grounds the layout.
+   Mint Lagoon (#DFF6F0 / #6DD5C4) energises accents & CTAs.
+───────────────────────────────────────────────────────────── */
 :root {
-  /* Eucalyptus Glow palette */
-  --forest: #3d5c39;         /* deep forest green */
-  --tropical: #a7c4a0;      /* sage green  — primary accent */
-  --sand: #cddec9;          /* mid-tone between ivory & sage */
-  --ivory: #f4efe6;         /* warm cream  — primary background */
-  --terracotta: #a7c4a0;    /* reuses sage for accent consistency */
-  --charcoal: #1d251c;      /* near-black text */
-  --white: #ffffff;
-  --ring: rgba(167, 196, 160, 0.62);
+  /* ── Eucalyptus Glow ── */
+  --forest:     #3d5c39;   /* deep forest green — headings, nav bg        */
+  --tropical:   #a7c4a0;   /* sage green — cards, borders, quiet accents  */
+  --sand:       #cddec9;   /* sage mid-tone — dividers, tag backgrounds   */
+  --ivory:      #f4efe6;   /* warm cream — primary page background        */
+
+  /* ── Mint Lagoon ── */
+  --lagoon:     #6dd5c4;   /* vibrant teal — CTAs, badges, hover glows    */
+  --mint:       #dff6f0;   /* pale mint — section tints, input focus fill */
+
+  /* ── Blend / Bridge ── */
+  --sage-teal:  #8ecbb9;   /* midpoint between tropical & lagoon          */
+  --deep-teal:  #2b7a6f;   /* darkened lagoon for text-on-light           */
+
+  /* ── Neutrals ── */
+  --charcoal:   #1d251c;   /* near-black text                             */
+  --white:      #ffffff;
+
+  /* ── Functional ── */
+  --terracotta: var(--lagoon);   /* accent alias → now points to lagoon   */
+  --ring:       rgba(109, 213, 196, 0.55);  /* lagoon-tinted focus ring  */
 }
 
 @theme inline {
-  --color-forest: var(--forest);
-  --color-tropical: var(--tropical);
-  --color-sand: var(--sand);
-  --color-ivory: var(--ivory);
-  --color-terracotta: var(--terracotta);
-  --color-charcoal: var(--charcoal);
-  --font-display: var(--font-display);
-  --font-sans: var(--font-sans);
-  --shadow-premium: 0 24px 80px rgba(53, 74, 50, 0.18);
+  --color-forest:    var(--forest);
+  --color-tropical:  var(--tropical);
+  --color-sand:      var(--sand);
+  --color-ivory:     var(--ivory);
+  --color-lagoon:    var(--lagoon);
+  --color-mint:      var(--mint);
+  --color-sage-teal: var(--sage-teal);
+  --color-deep-teal: var(--deep-teal);
+  --color-terracotta:var(--terracotta);
+  --color-charcoal:  var(--charcoal);
+  --font-display:    var(--font-display);
+  --font-sans:       var(--font-sans);
+  /* Shadow uses blended forest+lagoon for depth */
+  --shadow-premium: 0 24px 80px rgba(43, 122, 111, 0.16);
 }
 
-* {
-  box-sizing: border-box;
-}
+/* ─── Reset ────────────────────────────────────────────────── */
+* { box-sizing: border-box; }
 
 html {
   scroll-behavior: smooth;
@@ -34,13 +55,8 @@ html {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  html {
-    scroll-behavior: auto;
-  }
-
-  *,
-  *::before,
-  *::after {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
     animation-duration: 0.01ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
@@ -48,37 +64,37 @@ html {
   }
 }
 
+/* ─── Body — blended dual-palette gradient ──────────────────
+   Top-left: sage glow (eucalyptus)
+   Top-right: lagoon glow (mint)
+   Centre: fades through ivory → mint-ivory → ivory
+─────────────────────────────────────────────────────────── */
 body {
   margin: 0;
   color: var(--charcoal);
   background:
-    radial-gradient(circle at top left, rgba(167, 196, 160, 0.28), transparent 34rem),
-    linear-gradient(180deg, var(--ivory), #edf5eb 55%, var(--ivory));
+    radial-gradient(circle at 0% 0%,   rgba(167, 196, 160, 0.22), transparent 32rem),
+    radial-gradient(circle at 100% 0%,  rgba(109, 213, 196, 0.18), transparent 30rem),
+    radial-gradient(circle at 50% 100%, rgba(223, 246, 240, 0.28), transparent 28rem),
+    linear-gradient(180deg, var(--ivory) 0%, #ecf8f5 50%, var(--ivory) 100%);
   font-family: var(--font-sans), system-ui, sans-serif;
   text-rendering: optimizeLegibility;
 }
 
-a {
-  color: inherit;
-  text-decoration: none;
-}
+/* ─── Base elements ─────────────────────────────────────────── */
+a { color: inherit; text-decoration: none; }
 
-button,
-input,
-select,
-textarea {
-  font: inherit;
-}
+button, input, select, textarea { font: inherit; }
 
-img {
-  max-width: 100%;
-}
+img { max-width: 100%; }
 
+/* Selection — lagoon tint */
 ::selection {
-  background: var(--terracotta);
+  background: var(--lagoon);
   color: var(--white);
 }
 
+/* ─── Layout utilities ──────────────────────────────────────── */
 .container {
   width: min(100% - 2rem, 1180px);
   margin-inline: auto;
@@ -88,8 +104,10 @@ img {
   padding-block: clamp(4rem, 8vw, 8rem);
 }
 
+/* ─── Typography ────────────────────────────────────────────── */
+/* Eyebrow uses lagoon for vibrant contrast against sage backgrounds */
 .eyebrow {
-  color: var(--terracotta);
+  color: var(--deep-teal);
   font-size: 0.78rem;
   font-weight: 800;
   letter-spacing: 0.18em;
@@ -117,47 +135,43 @@ img {
   line-height: 1.75;
 }
 
+/* ─── Accessibility ─────────────────────────────────────────── */
 .focus-ring {
   outline: 3px solid transparent;
   outline-offset: 3px;
 }
-
 .focus-ring:focus-visible {
   outline-color: var(--ring);
 }
 
-.texture {
-  position: relative;
-}
+/* ─── Texture — blended grid lines ─────────────────────────── */
+.texture { position: relative; }
 
 .texture::before {
   position: absolute;
   inset: 0;
   pointer-events: none;
   content: "";
-  opacity: 0.32;
+  opacity: 0.28;
   background-image:
-    linear-gradient(rgba(53, 74, 50, 0.05) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(53, 74, 50, 0.05) 1px, transparent 1px);
+    linear-gradient(rgba(61, 92, 57, 0.04)  1px, transparent 1px),
+    linear-gradient(90deg, rgba(61, 92, 57, 0.04) 1px, transparent 1px);
   background-size: 38px 38px;
   mask-image: radial-gradient(circle at center, black, transparent 74%);
 }
 
-.no-scrollbar::-webkit-scrollbar {
-  display: none;
-}
+/* ─── Scrollbar ─────────────────────────────────────────────── */
+.no-scrollbar::-webkit-scrollbar { display: none; }
+.no-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
 
-.no-scrollbar {
-  -ms-overflow-style: none;
-  scrollbar-width: none;
-}
-
+/* ─── Prose ─────────────────────────────────────────────────── */
 .prose-travel p {
   margin-block: 1rem;
   color: rgba(29, 37, 28, 0.78);
   line-height: 1.85;
 }
 
+/* ─── Animated underline ────────────────────────────────────── */
 .animated-underline {
   background-image: linear-gradient(currentColor, currentColor);
   background-position: 0 100%;
@@ -165,34 +179,69 @@ img {
   background-size: 0% 1px;
   transition: background-size 360ms ease;
 }
+.animated-underline:hover { background-size: 100% 1px; }
 
-.animated-underline:hover {
-  background-size: 100% 1px;
-}
-
+/* ─── Shimmer — lagoon-tinted skeleton loader ───────────────── */
 .shimmer {
   position: relative;
   overflow: hidden;
-  background: rgba(167, 196, 160, 0.24);
+  /* blended: sage + mint tint */
+  background: linear-gradient(135deg,
+    rgba(167, 196, 160, 0.18),
+    rgba(109, 213, 196, 0.14)
+  );
 }
 
 .shimmer::after {
   position: absolute;
   inset: 0;
   content: "";
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(223, 246, 240, 0.65),
+    transparent
+  );
   transform: translateX(-100%);
   animation: shimmer 1.8s ease-in-out infinite;
 }
 
 @keyframes shimmer {
-  to {
-    transform: translateX(100%);
-  }
+  to { transform: translateX(100%); }
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .shimmer::after {
-    animation: none;
-  }
+  .shimmer::after { animation: none; }
+}
+
+/* ─── Lagoon glow — used on CTA buttons & badges ───────────── */
+.lagoon-glow {
+  box-shadow:
+    0 0 0 0 rgba(109, 213, 196, 0),
+    0 8px 32px rgba(109, 213, 196, 0.32);
+  transition: box-shadow 0.35s ease;
+}
+.lagoon-glow:hover {
+  box-shadow:
+    0 0 0 4px rgba(109, 213, 196, 0.18),
+    0 12px 40px rgba(109, 213, 196, 0.42);
+}
+
+/* ─── Section tint utilities ────────────────────────────────── */
+/* Eucalyptus-tinted section */
+.bg-eucalyptus {
+  background: linear-gradient(135deg, var(--ivory) 0%, var(--sand) 100%);
+}
+
+/* Mint-tinted section */
+.bg-mint-wash {
+  background: linear-gradient(135deg, var(--mint) 0%, rgba(223,246,240,0.5) 100%);
+}
+
+/* Blended hero/CTA section */
+.bg-blend-lagoon {
+  background:
+    radial-gradient(circle at 30% 40%, rgba(109,213,196,0.22), transparent 20rem),
+    radial-gradient(circle at 80% 70%, rgba(167,196,160,0.18), transparent 18rem),
+    var(--forest);
 }

@@ -28,9 +28,11 @@ export function FeaturedTours({ tours }: { tours: Tour[] }) {
           </button>
         ))}
       </div>
-      <div className="mt-8 grid gap-6 md:grid-cols-2 xl:grid-cols-3">
+      <div className="no-scrollbar -mx-4 px-4 mt-8 flex gap-6 overflow-x-auto pb-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 xl:grid-cols-3 md:overflow-visible">
         <AnimatePresence mode="popLayout">
-          {visibleTours.map((tour) => <TourCard key={tour.id} tour={tour} />)}
+          {visibleTours.map((tour) => (
+            <TourCard key={tour.id} tour={tour} className="w-[85vw] sm:w-[45vw] md:w-full shrink-0 animate-none" />
+          ))}
         </AnimatePresence>
       </div>
     </div>

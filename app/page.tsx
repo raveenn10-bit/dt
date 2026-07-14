@@ -18,7 +18,7 @@ import { TestimonialCarousel } from "@/components/home/testimonial-carousel";
 import { GalleryLightbox } from "@/components/home/gallery-lightbox";
 import { JsonLd } from "@/components/seo/json-ld";
 import { createMetadata } from "@/lib/metadata";
-import { whatsappUrl } from "@/lib/utils";
+import { cn, whatsappUrl } from "@/lib/utils";
 
 export const metadata = createMetadata();
 
@@ -91,13 +91,13 @@ export default function HomePage() {
       <section className="section bg-white">
         <div className="container">
           <SectionHeading eyebrow="Destinations" title="Popular Places, Planned With Context" description="Choose the places you know you want, then let us shape the route around seasons, drive times and better local timings." />
-          <StaggerContainer className="no-scrollbar mt-10 flex gap-5 overflow-x-auto pb-4 lg:grid lg:grid-cols-4 lg:overflow-visible">
+          <StaggerContainer className="no-scrollbar -mx-4 px-4 mt-10 flex gap-5 overflow-x-auto pb-4 lg:mx-0 lg:px-0 lg:grid lg:grid-cols-4 lg:overflow-visible">
             {destinations.map((destination, index) => (
-              <StaggerItem key={destination.id} className={`${index === 0 || index === 5 ? "lg:col-span-2" : ""}`}>
+              <StaggerItem key={destination.id} className={cn("shrink-0 w-[78%] sm:w-[42%] lg:w-auto", (index === 0 || index === 5) && "lg:col-span-2")}>
                 <Link
                   href={`/destinations/${destination.slug}`}
                   data-cursor="View"
-                  className="focus-ring group relative block min-h-[320px] min-w-[78%] overflow-hidden rounded-[2rem] bg-forest p-6 text-white shadow-premium transition duration-500 hover:-translate-y-2 hover:rounded-[1.5rem] sm:min-w-[42%] lg:min-w-0"
+                  className="focus-ring group relative block min-h-[320px] w-full overflow-hidden rounded-[2rem] bg-forest p-6 text-white shadow-premium transition duration-500 hover:-translate-y-2 hover:rounded-[1.5rem]"
                 >
                   <Image src={destination.heroImage.src} alt={destination.heroImage.alt} fill sizes="(min-width:1024px) 25vw, 80vw" className="object-cover opacity-75 transition duration-700 group-hover:scale-105" />
                   <div className="absolute inset-0 bg-gradient-to-t from-charcoal/75 to-transparent transition group-hover:from-charcoal/86" />
@@ -125,10 +125,10 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow="Why choose us" title="Built Like a Boutique Travel Desk, Run by Locals" />
-          <StaggerContainer className="mt-10 grid gap-5 md:grid-cols-2 lg:grid-cols-3">
+          <StaggerContainer className="no-scrollbar -mx-4 px-4 mt-10 flex gap-5 overflow-x-auto pb-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible">
             {why.map((item) => (
-              <StaggerItem key={item.title}>
-                <div className="group rounded-[2rem] border border-sand bg-white p-7 shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2 hover:bg-sand/70">
+              <StaggerItem key={item.title} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
+                <div className="group h-full rounded-[2rem] border border-sand bg-white p-7 shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2 hover:bg-sand/70">
                   <item.icon className="h-8 w-8 text-terracotta transition duration-500 group-hover:rotate-6 group-hover:scale-110" />
                   <h3 className="mt-5 font-display text-3xl text-forest">{item.title}</h3>
                   <p className="mt-3 leading-7 text-charcoal/68">{item.text}</p>
@@ -164,10 +164,10 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow="Travel journal" title="Planning Notes From the Island" />
-          <StaggerContainer className="mt-10 grid gap-6 md:grid-cols-3">
+          <StaggerContainer className="no-scrollbar -mx-4 px-4 mt-10 flex gap-6 overflow-x-auto pb-4 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible">
             {journal.map((article) => (
-              <StaggerItem key={article.id}>
-                <article className="group overflow-hidden rounded-[2rem] bg-white shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2">
+              <StaggerItem key={article.id} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
+                <article className="group h-full overflow-hidden rounded-[2rem] bg-white shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2">
                   <Link href={`/journal/${article.slug}`} className="focus-ring block">
                     <div className="relative aspect-[4/3] overflow-hidden">
                       <Image src={article.coverImage.src} alt={article.coverImage.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />

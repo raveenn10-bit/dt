@@ -6,9 +6,9 @@ import { Clock, Heart, MapPin, Star } from "lucide-react";
 import { motion } from "framer-motion";
 import { useState } from "react";
 import type { Tour } from "@/types/tour";
-import { formatCurrency } from "@/lib/utils";
+import { cn, formatCurrency } from "@/lib/utils";
 
-export function TourCard({ tour }: { tour: Tour }) {
+export function TourCard({ tour, className }: { tour: Tour; className?: string }) {
   const [saved, setSaved] = useState(false);
   const [toast, setToast] = useState(false);
 
@@ -19,7 +19,17 @@ export function TourCard({ tour }: { tour: Tour }) {
   }
 
   return (
-    <motion.article layout initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: 16 }} whileHover={{ y: -8 }} className="group relative overflow-hidden rounded-[2rem] bg-white shadow-[0_18px_55px_rgba(53,74,50,0.12)] transition-shadow duration-500 hover:shadow-premium">
+    <motion.article
+      layout
+      initial={{ opacity: 0, y: 24 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: 16 }}
+      whileHover={{ y: -8 }}
+      className={cn(
+        "group relative overflow-hidden rounded-[2rem] bg-white shadow-[0_18px_55px_rgba(53,74,50,0.12)] transition-shadow duration-500 hover:shadow-premium",
+        className
+      )}
+    >
       <Link href={`/tours/${tour.slug}`} className="focus-ring block">
         <div className="relative aspect-[4/3] overflow-hidden">
           <Image
