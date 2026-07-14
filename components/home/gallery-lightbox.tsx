@@ -24,7 +24,7 @@ export function GalleryLightbox({ images }: { images: TravelImage[] }) {
     <>
       <div className="w-full overflow-hidden py-4 -mx-4 px-4 lg:mx-0 lg:px-0 lg:overflow-visible">
         <div 
-          className="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused] lg:w-full lg:block lg:animate-none lg:overflow-visible"
+          className="flex w-max animate-marquee-tablet gap-4 hover:[animation-play-state:paused] lg:w-full lg:block lg:animate-none lg:overflow-visible"
           style={{ "--marquee-duration": "35s" } as React.CSSProperties}
         >
           <motion.div className="flex gap-4 shrink-0 lg:grid lg:w-full lg:grid-cols-4 lg:auto-rows-[210px] lg:gap-4" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}>
