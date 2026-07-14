@@ -1,17 +1,25 @@
 "use client";
 
 import { motion, useReducedMotion, useScroll, useTransform } from "framer-motion";
+import { useEffect, useState } from "react";
+import Image from "next/image";
 import { LinkButton } from "@/components/ui/button";
 import { SplitLineHeading } from "@/components/motion/animation-primitives";
 
 const heroVideo = "/videos/homepage-hero.mp4";
-const heroPoster = "https://images.unsplash.com/photo-1612862862126-865765df2ded?auto=format&fit=crop&w=2200&q=80";
+// Use a slightly smaller poster dimension to save bandwidth
+const heroPoster = "https://images.unsplash.com/photo-1612862862126-865765df2ded?auto=format&fit=crop&w=1600&q=75";
 
 export function CinematicHero() {
   const reduceMotion = useReducedMotion();
   const { scrollYProgress } = useScroll();
   const y = useTransform(scrollYProgress, [0, 0.35], reduceMotion ? [0, 0] : [0, 90]);
   const overlayOpacity = useTransform(scrollYProgress, [0, 0.22], [0.7, 0.45]);
+  const [mounted, setMounted] = useState(false);
+
+  useEffect(() => {
+    setMounted(true);
+  }, []);
 
   return (
     <section className="relative flex min-h-svh items-end overflow-hidden bg-forest pb-24 pt-36 text-white">
@@ -22,18 +30,31 @@ export function CinematicHero() {
         transition={{ duration: 1.4, ease: [0.22, 1, 0.36, 1] }}
         style={{ y }}
       >
-        <video
-          className="h-full w-full object-cover"
-          poster={heroPoster}
-          autoPlay={!reduceMotion}
-          muted
-          loop={!reduceMotion}
-          playsInline
-          preload="metadata"
-          aria-label="Featured travel video"
-        >
-          <source src={heroVideo} type="video/mp4" />
-        </video>
+        {/* Optimized Priority image loaded instantly above the fold */}
+        <Image
+          src={heroPoster}
+          alt="Sri Lanka scenery"
+          fill
+          priority
+          sizes="100vw"
+          className="object-cover"
+          quality={75}
+        />
+        {/* Render video only after mounting to prevent blocking the initial paint */}
+        {mounted ? (
+          <video
+            className="absolute inset-0 h-full w-full object-cover"
+            poster={heroPoster}
+            autoPlay={!reduceMotion}
+            muted
+            loop={!reduceMotion}
+            playsInline
+            preload="auto"
+            aria-label="Featured travel video"
+          >
+            <source src={heroVideo} type="video/mp4" />
+          </video>
+        ) : null}
       </motion.div>
       <motion.div className="absolute inset-0 bg-gradient-to-t from-forest via-charcoal/55 to-charcoal/25" style={{ opacity: overlayOpacity }} />
       <div className="absolute bottom-10 right-8 hidden text-right text-xs font-bold uppercase tracking-[0.25em] text-white/55 md:block">

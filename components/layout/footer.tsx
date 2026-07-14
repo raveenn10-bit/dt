@@ -20,7 +20,7 @@ export function Footer() {
             <a href="mailto:hello@ceylontravelholidays.com" className="focus-ring flex items-center gap-2 rounded-sm"><Mail className="h-4 w-4" /> hello@ceylontravelholidays.com</a>
           </div>
         </div>
-        <div className="grid gap-10 sm:grid-cols-2 lg:grid-cols-4">
+        <div className="grid grid-cols-2 gap-x-6 gap-y-10 sm:grid-cols-2 lg:grid-cols-4">
           <div>
             <h2 className="text-sm font-extrabold uppercase tracking-[0.2em] text-sand">Destinations</h2>
             <ul className="mt-5 grid gap-3 text-sm text-white/72">
@@ -49,7 +49,7 @@ export function Footer() {
               <li><Link className="focus-ring rounded-sm hover:text-sand" href="/plan-my-trip">Plan My Trip</Link></li>
             </ul>
           </div>
-          <div>
+          <div className="col-span-2 sm:col-span-1">
             <h2 className="text-sm font-extrabold uppercase tracking-[0.2em] text-sand">Newsletter</h2>
             <p className="mt-5 text-sm leading-6 text-white/70">Seasonal route ideas and practical planning notes.</p>
             <NewsletterForm />
