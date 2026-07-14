@@ -1,6 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import type React from "react";
 import { Cormorant_Garamond, Manrope } from "next/font/google";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import "./globals.css";
 import { AnnouncementBar } from "@/components/layout/announcement-bar";
 import { CookieConsent } from "@/components/layout/cookie-consent";
@@ -55,6 +56,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
           <MobileActionBar />
           <ScrollToTop />
           <CookieConsent />
+          <SpeedInsights />
         </MotionProvider>
         <JsonLd
           data={{
