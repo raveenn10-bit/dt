@@ -245,3 +245,25 @@ img { max-width: 100%; }
     radial-gradient(circle at 80% 70%, rgba(167,196,160,0.18), transparent 18rem),
     var(--forest);
 }
+
+/* ─── Marquee Animation ───────────────────────────────────── */
+@keyframes marquee {
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+.animate-marquee {
+  animation: marquee var(--marquee-duration, 30s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .animate-marquee {
+    animation: none;
+    overflow-x: auto;
+  }
+}
+

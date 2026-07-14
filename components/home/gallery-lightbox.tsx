@@ -4,6 +4,7 @@ import Image from "next/image";
 import { Eye, X } from "lucide-react";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 import type { TravelImage } from "@/types/tour";
 
 export function GalleryLightbox({ images }: { images: TravelImage[] }) {
@@ -21,24 +22,51 @@ export function GalleryLightbox({ images }: { images: TravelImage[] }) {
 
   return (
     <>
-      <motion.div className="mt-10 grid auto-rows-[210px] grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-4" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}>
-        {images.map((image, index) => (
-          <motion.button
-            key={`${image.src}-${index}`}
-            type="button"
-            onClick={() => setActive(index)}
-            className={`focus-ring group relative overflow-hidden rounded-[1.5rem] ${index === 0 || index === 3 ? "lg:row-span-2" : ""}`}
-            variants={{ hidden: { opacity: 0, y: index % 2 ? 28 : 14, scale: 0.96 }, show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65 } } }}
-            data-cursor="View"
-          >
-            <Image src={image.src} alt={image.alt} fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
-            <span className="absolute inset-0 grid place-items-center bg-charcoal/0 text-white opacity-0 transition duration-300 group-hover:bg-charcoal/35 group-hover:opacity-100">
-              <Eye className="h-7 w-7" />
-            </span>
-            <span className="sr-only">Open image: {image.alt}</span>
-          </motion.button>
-        ))}
-      </motion.div>
+      <div className="w-full overflow-hidden py-4 -mx-4 px-4 lg:mx-0 lg:px-0 lg:overflow-visible">
+        <div 
+          className="flex w-max animate-marquee gap-4 hover:[animation-play-state:paused] lg:w-full lg:grid lg:auto-rows-[210px] lg:grid-cols-4 lg:animate-none lg:gap-4 lg:overflow-visible"
+          style={{ "--marquee-duration": "35s" } as React.CSSProperties}
+        >
+          <motion.div className="flex gap-4 shrink-0 lg:contents" initial="hidden" whileInView="show" viewport={{ once: true, amount: 0.15 }} variants={{ hidden: {}, show: { transition: { staggerChildren: 0.07 } } }}>
+            {images.map((image, index) => (
+              <motion.button
+                key={`${image.src}-${index}`}
+                type="button"
+                onClick={() => setActive(index)}
+                className={cn(
+                  "focus-ring group relative h-[210px] w-[70vw] sm:w-[40vw] lg:h-full lg:w-full shrink-0 overflow-hidden rounded-[1.5rem]",
+                  (index === 0 || index === 3) && "lg:row-span-2"
+                )}
+                variants={{ hidden: { opacity: 0, y: index % 2 ? 28 : 14, scale: 0.96 }, show: { opacity: 1, y: 0, scale: 1, transition: { duration: 0.65 } } }}
+                data-cursor="View"
+              >
+                <Image src={image.src} alt={image.alt} fill sizes="(min-width:1024px) 25vw, 50vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                <span className="absolute inset-0 grid place-items-center bg-charcoal/0 text-white opacity-0 transition duration-300 group-hover:bg-charcoal/35 group-hover:opacity-100">
+                  <Eye className="h-7 w-7" />
+                </span>
+                <span className="sr-only">Open image: {image.alt}</span>
+              </motion.button>
+            ))}
+          </motion.div>
+          {/* Duplicated for mobile infinite marquee loop */}
+          <div className="flex gap-4 shrink-0 lg:hidden">
+            {images.map((image, index) => (
+              <button
+                key={`${image.src}-${index}-dup`}
+                type="button"
+                onClick={() => setActive(index)}
+                className="focus-ring group relative h-[210px] w-[70vw] sm:w-[40vw] shrink-0 overflow-hidden rounded-[1.5rem]"
+              >
+                <Image src={image.src} alt={image.alt} fill sizes="50vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                <span className="absolute inset-0 grid place-items-center bg-charcoal/0 text-white opacity-0 transition duration-300 group-hover:bg-charcoal/35 group-hover:opacity-100">
+                  <Eye className="h-7 w-7" />
+                </span>
+                <span className="sr-only">Open image: {image.alt}</span>
+              </button>
+            ))}
+          </div>
+        </div>
+      </div>
       <AnimatePresence>
       {active !== null ? (
         <motion.div className="fixed inset-0 z-[80] grid place-items-center bg-charcoal/90 p-4" role="dialog" aria-modal="true" aria-label="Gallery image viewer" initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}>

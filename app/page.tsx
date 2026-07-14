@@ -125,18 +125,37 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow="Why choose us" title="Built Like a Boutique Travel Desk, Run by Locals" />
-          <StaggerContainer className="no-scrollbar -mx-4 px-4 mt-10 flex gap-5 overflow-x-auto pb-4 md:mx-0 md:px-0 md:grid md:grid-cols-2 lg:grid-cols-3 md:overflow-visible">
-            {why.map((item) => (
-              <StaggerItem key={item.title} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
-                <div className="group h-full rounded-[2rem] border border-sand bg-white p-7 shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2 hover:bg-sand/70">
-                  <item.icon className="h-8 w-8 text-terracotta transition duration-500 group-hover:rotate-6 group-hover:scale-110" />
-                  <h3 className="mt-5 font-display text-3xl text-forest">{item.title}</h3>
-                  <p className="mt-3 leading-7 text-charcoal/68">{item.text}</p>
-                  <span className="mt-5 block h-px w-12 bg-terracotta transition-all duration-500 group-hover:w-24" />
-                </div>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+          <div className="w-full overflow-hidden py-4 -mx-4 px-4 md:mx-0 md:px-0 md:overflow-visible">
+            <div 
+              className="flex w-max animate-marquee gap-5 hover:[animation-play-state:paused] md:w-full md:grid md:grid-cols-2 lg:grid-cols-3 md:animate-none md:gap-5 md:overflow-visible"
+              style={{ "--marquee-duration": "30s" } as React.CSSProperties}
+            >
+              <div className="flex gap-5 shrink-0 pr-5 md:contents md:pr-0">
+                {why.map((item) => (
+                  <StaggerItem key={item.title} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
+                    <div className="group h-full rounded-[2rem] border border-sand bg-white p-7 shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2 hover:bg-sand/70">
+                      <item.icon className="h-8 w-8 text-terracotta transition duration-500 group-hover:rotate-6 group-hover:scale-110" />
+                      <h3 className="mt-5 font-display text-3xl text-forest">{item.title}</h3>
+                      <p className="mt-3 leading-7 text-charcoal/68">{item.text}</p>
+                      <span className="mt-5 block h-px w-12 bg-terracotta transition-all duration-500 group-hover:w-24" />
+                    </div>
+                  </StaggerItem>
+                ))}
+              </div>
+              <div className="flex gap-5 shrink-0 pr-5 md:hidden">
+                {why.map((item) => (
+                  <div key={`${item.title}-dup`} className="w-[82vw] sm:w-[45vw] shrink-0">
+                    <div className="group h-full rounded-[2rem] border border-sand bg-white p-7 shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2 hover:bg-sand/70">
+                      <item.icon className="h-8 w-8 text-terracotta transition duration-500 group-hover:rotate-6 group-hover:scale-110" />
+                      <h3 className="mt-5 font-display text-3xl text-forest">{item.title}</h3>
+                      <p className="mt-3 leading-7 text-charcoal/68">{item.text}</p>
+                      <span className="mt-5 block h-px w-12 bg-terracotta transition-all duration-500 group-hover:w-24" />
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 
@@ -164,24 +183,49 @@ export default function HomePage() {
       <section className="section">
         <div className="container">
           <SectionHeading eyebrow="Travel journal" title="Planning Notes From the Island" />
-          <StaggerContainer className="no-scrollbar -mx-4 px-4 mt-10 flex gap-6 overflow-x-auto pb-4 md:mx-0 md:px-0 md:grid md:grid-cols-3 md:overflow-visible">
-            {journal.map((article) => (
-              <StaggerItem key={article.id} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
-                <article className="group h-full overflow-hidden rounded-[2rem] bg-white shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2">
-                  <Link href={`/journal/${article.slug}`} className="focus-ring block">
-                    <div className="relative aspect-[4/3] overflow-hidden">
-                      <Image src={article.coverImage.src} alt={article.coverImage.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
-                    </div>
-                  </Link>
-                  <div className="p-6">
-                    <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-terracotta">{article.category} · {article.readingTime}</p>
-                    <h3 className="mt-3 font-display text-3xl leading-none text-forest transition group-hover:text-tropical"><Link href={`/journal/${article.slug}`}>{article.title}</Link></h3>
-                    <p className="mt-3 text-sm leading-6 text-charcoal/68">{article.excerpt}</p>
+          <div className="w-full overflow-hidden py-4 -mx-4 px-4 md:mx-0 md:px-0 md:overflow-visible">
+            <div 
+              className="flex w-max animate-marquee gap-6 hover:[animation-play-state:paused] md:w-full md:grid md:grid-cols-3 md:animate-none md:gap-6 md:overflow-visible"
+              style={{ "--marquee-duration": "25s" } as React.CSSProperties}
+            >
+              <div className="flex gap-6 shrink-0 pr-6 md:contents md:pr-0">
+                {journal.map((article) => (
+                  <StaggerItem key={article.id} className="w-[82vw] sm:w-[45vw] md:w-auto shrink-0">
+                    <article className="group h-full overflow-hidden rounded-[2rem] bg-white shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2">
+                      <Link href={`/journal/${article.slug}`} className="focus-ring block">
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <Image src={article.coverImage.src} alt={article.coverImage.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                        </div>
+                      </Link>
+                      <div className="p-6">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-terracotta">{article.category} · {article.readingTime}</p>
+                        <h3 className="mt-3 font-display text-3xl leading-none text-forest transition group-hover:text-tropical"><Link href={`/journal/${article.slug}`}>{article.title}</Link></h3>
+                        <p className="mt-3 text-sm leading-6 text-charcoal/68">{article.excerpt}</p>
+                      </div>
+                    </article>
+                  </StaggerItem>
+                ))}
+              </div>
+              <div className="flex gap-6 shrink-0 pr-6 md:hidden">
+                {journal.map((article) => (
+                  <div key={`${article.id}-dup`} className="w-[82vw] sm:w-[45vw] shrink-0">
+                    <article className="group h-full overflow-hidden rounded-[2rem] bg-white shadow-[0_14px_45px_rgba(53,74,50,0.08)] transition duration-500 hover:-translate-y-2">
+                      <Link href={`/journal/${article.slug}`} className="focus-ring block">
+                        <div className="relative aspect-[4/3] overflow-hidden">
+                          <Image src={article.coverImage.src} alt={article.coverImage.alt} fill sizes="(min-width:768px) 33vw, 100vw" className="object-cover transition duration-700 group-hover:scale-105" />
+                        </div>
+                      </Link>
+                      <div className="p-6">
+                        <p className="text-xs font-extrabold uppercase tracking-[0.18em] text-terracotta">{article.category} · {article.readingTime}</p>
+                        <h3 className="mt-3 font-display text-3xl leading-none text-forest transition group-hover:text-tropical"><Link href={`/journal/${article.slug}`}>{article.title}</Link></h3>
+                        <p className="mt-3 text-sm leading-6 text-charcoal/68">{article.excerpt}</p>
+                      </div>
+                    </article>
                   </div>
-                </article>
-              </StaggerItem>
-            ))}
-          </StaggerContainer>
+                ))}
+              </div>
+            </div>
+          </div>
         </div>
       </section>
 

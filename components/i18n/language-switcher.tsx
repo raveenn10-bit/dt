@@ -29,7 +29,7 @@ export function LanguageSwitcher({ compact = false, scrolled = false }: { compac
           className={cn(
             "focus-ring rounded-full px-3 py-2 text-xs font-extrabold transition",
             activeLocale === locale
-              ? "bg-terracotta text-white"
+              ? "bg-terracotta text-forest"
               : scrolled ? "text-charcoal hover:bg-sand/60" : "text-white/78 hover:bg-white/15"
           )}
           title={localeNames[locale].english}
