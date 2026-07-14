@@ -62,7 +62,12 @@ export function Footer() {
       </div>
       <div className="container mt-12 flex flex-col gap-3 border-t border-white/12 pt-6 text-xs text-white/55 md:flex-row md:items-center md:justify-between">
         <p>SLTDA registered travel partner · Secure inquiry handling · Local 24/7 assistance</p>
-        <p>© {new Date().getFullYear()} Ceylon Travel Holidays. All rights reserved.</p>
+        <div className="flex flex-col gap-1 text-left md:text-right">
+          <p>© {new Date().getFullYear()} Ceylon Travel Holidays. All rights reserved.</p>
+          <p className="text-[10px] text-white/40">
+            Designed by <span className="text-periwinkle">Harsh Apex Digital Solutions</span>
+          </p>
+        </div>
       </div>
     </footer>
   );
