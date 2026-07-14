@@ -1,0 +1,20 @@
+export type Inquiry = {
+  travelStyle: string;
+  destinations: string[];
+  experiences: string[];
+  accommodationType: string;
+  approximateDates: string;
+  flexibleDates: boolean;
+  duration: string;
+  adults: number;
+  children: number;
+  budgetRange: string;
+  fullName: string;
+  email: string;
+  phone: string;
+  country: string;
+  preferredContactMethod: "Email" | "WhatsApp" | "Phone";
+  message?: string;
+  privacyConsent: boolean;
+  website?: string;
+};

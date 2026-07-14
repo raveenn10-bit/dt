@@ -1,0 +1,198 @@
+@import "tailwindcss";
+
+:root {
+  /* Eucalyptus Glow palette */
+  --forest: #3d5c39;         /* deep forest green */
+  --tropical: #a7c4a0;      /* sage green  — primary accent */
+  --sand: #cddec9;          /* mid-tone between ivory & sage */
+  --ivory: #f4efe6;         /* warm cream  — primary background */
+  --terracotta: #a7c4a0;    /* reuses sage for accent consistency */
+  --charcoal: #1d251c;      /* near-black text */
+  --white: #ffffff;
+  --ring: rgba(167, 196, 160, 0.62);
+}
+
+@theme inline {
+  --color-forest: var(--forest);
+  --color-tropical: var(--tropical);
+  --color-sand: var(--sand);
+  --color-ivory: var(--ivory);
+  --color-terracotta: var(--terracotta);
+  --color-charcoal: var(--charcoal);
+  --font-display: var(--font-display);
+  --font-sans: var(--font-sans);
+  --shadow-premium: 0 24px 80px rgba(53, 74, 50, 0.18);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  background: var(--ivory);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+body {
+  margin: 0;
+  color: var(--charcoal);
+  background:
+    radial-gradient(circle at top left, rgba(167, 196, 160, 0.28), transparent 34rem),
+    linear-gradient(180deg, var(--ivory), #edf5eb 55%, var(--ivory));
+  font-family: var(--font-sans), system-ui, sans-serif;
+  text-rendering: optimizeLegibility;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+img {
+  max-width: 100%;
+}
+
+::selection {
+  background: var(--terracotta);
+  color: var(--white);
+}
+
+.container {
+  width: min(100% - 2rem, 1180px);
+  margin-inline: auto;
+}
+
+.section {
+  padding-block: clamp(4rem, 8vw, 8rem);
+}
+
+.eyebrow {
+  color: var(--terracotta);
+  font-size: 0.78rem;
+  font-weight: 800;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+
+.display-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(3rem, 7vw, 7rem);
+  font-weight: 600;
+  letter-spacing: -0.06em;
+  line-height: 0.9;
+}
+
+.section-title {
+  font-family: var(--font-display), Georgia, serif;
+  font-size: clamp(2.5rem, 5vw, 5rem);
+  font-weight: 600;
+  letter-spacing: -0.045em;
+  line-height: 0.95;
+}
+
+.body-large {
+  font-size: clamp(1.125rem, 1.5vw, 1.3125rem);
+  line-height: 1.75;
+}
+
+.focus-ring {
+  outline: 3px solid transparent;
+  outline-offset: 3px;
+}
+
+.focus-ring:focus-visible {
+  outline-color: var(--ring);
+}
+
+.texture {
+  position: relative;
+}
+
+.texture::before {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  content: "";
+  opacity: 0.32;
+  background-image:
+    linear-gradient(rgba(53, 74, 50, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(53, 74, 50, 0.05) 1px, transparent 1px);
+  background-size: 38px 38px;
+  mask-image: radial-gradient(circle at center, black, transparent 74%);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.prose-travel p {
+  margin-block: 1rem;
+  color: rgba(29, 37, 28, 0.78);
+  line-height: 1.85;
+}
+
+.animated-underline {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  background-size: 0% 1px;
+  transition: background-size 360ms ease;
+}
+
+.animated-underline:hover {
+  background-size: 100% 1px;
+}
+
+.shimmer {
+  position: relative;
+  overflow: hidden;
+  background: rgba(167, 196, 160, 0.24);
+}
+
+.shimmer::after {
+  position: absolute;
+  inset: 0;
+  content: "";
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.55), transparent);
+  transform: translateX(-100%);
+  animation: shimmer 1.8s ease-in-out infinite;
+}
+
+@keyframes shimmer {
+  to {
+    transform: translateX(100%);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .shimmer::after {
+    animation: none;
+  }
+}
